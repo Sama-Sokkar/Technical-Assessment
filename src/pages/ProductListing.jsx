@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function ProductListing() {
@@ -36,7 +37,7 @@ function ProductListing() {
 
   return (
     <Wrapper>
-      <h1>Product Listing Page</h1>
+      <h1 className="title">Product Listing Page</h1>
       <ProductList className="products-list">
         {products.map((product) => (
           <ProductItem key={product.id} className="product-item">
@@ -44,6 +45,9 @@ function ProductListing() {
             <ProductTitle>{product.title}</ProductTitle>
             <ProductPrice>Price: ${product.price}</ProductPrice>
             <ProductCategory>Category: {product.category}</ProductCategory>
+            <Link to={`/product/${product.id}`}>
+              <button>View Details</button>
+            </Link>
           </ProductItem>
         ))}
       </ProductList>
@@ -57,6 +61,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  .title{
+    color: navy;
+  }
 `;
 
 const ProductList = styled.div`
@@ -84,10 +91,13 @@ const ProductImage = styled.img`
 const ProductTitle = styled.h3`
   margin-bottom: 5px;
   font-size: 1.2rem;
+  color: navy;
 `;
 
 const ProductPrice = styled.p`
   margin-bottom: 5px;
+  color: navy;
+
 `;
 
 const ProductCategory = styled.p`
