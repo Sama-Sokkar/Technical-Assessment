@@ -1,26 +1,36 @@
 import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
 function PageNav() {
   const location = useLocation();
-  const checkIsActive = (path) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
+
   return (
     <Wrapper>
-      <nav className="nav">
-        <ul>
-          <li className={checkIsActive("/") ? "active" : ""}>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li className={checkIsActive("/ProductListing") ? "active" : ""}>
-            <NavLink to="/ProductListing">Product Listing</NavLink>
-          </li>
-          <li className={checkIsActive("/ProductDetails") ? "active" : ""}>
-            <NavLink to="/ProductDetails">Product Details</NavLink>
-          </li>
-          <li className={checkIsActive("/CreateProduct") ? "active" : ""}>
-            <NavLink to="/CreateProduct">Create Product</NavLink>
-          </li>
-        </ul>
-      </nav>
+      <Nav>
+        <NavList>
+          <NavItem>
+            <NavLinkStyled to="/" className={isActive("/") ? "active" : ""}>
+              Home
+            </NavLinkStyled>
+          </NavItem>
+          <NavItem>
+            <NavLinkStyled to="/ProductListing" className={isActive("/ProductListing") ? "active" : ""}>
+              Product Listing
+            </NavLinkStyled>
+          </NavItem>
+          <NavItem>
+            <NavLinkStyled to="/ProductDetails" className={isActive("/ProductDetails") ? "active" : ""}>
+              Product Details
+            </NavLinkStyled>
+          </NavItem>
+          <NavItem>
+            <NavLinkStyled to="/CreateProduct" className={isActive("/CreateProduct") ? "active" : ""}>
+              Create Product
+            </NavLinkStyled>
+          </NavItem>
+        </NavList>
+      </Nav>
     </Wrapper>
   );
 }
@@ -28,38 +38,46 @@ function PageNav() {
 export default PageNav;
 
 const Wrapper = styled.div`
-  .nav {
-    margin-bottom: 1rem;
+  background-color: #fff;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const Nav = styled.nav`
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+const NavList = styled.ul`
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+`;
+
+const NavItem = styled.li`
+  margin: 0 1rem;
+`;
+
+const NavLinkStyled = styled(NavLink)`
+  display: block;
+  color: navy;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+
+  &:hover, &.active {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
   }
 
-  .nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    background-color: beige;
-    border-radius: 7px;
-    margin: 0rem;
-    padding: 0rem;
-  }
-
-  .nav a:hover {
-    transform: scale(1.07);
-  }
-
-  .nav a {
-    transition: transform 0.3s ease;
-  }
-  .nav a {
-    display: block;
-    color: navy;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 1.1rem;
+  &.active {
     font-weight: 700;
-    padding: 0.8rem 0;
-  }
-  .active {
-    text-decoration: underline;
-    transform: scale(1.06);
   }
 `;
